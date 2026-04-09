@@ -1,0 +1,6 @@
+
+# Compiler artifacts from DrRacket
+compiled
+
+# .rkt tmp files that store currently open files.
+*.rkt~
