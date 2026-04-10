@@ -18,3 +18,12 @@
 
 (define (extend [env : Env] [name : Symbol] [val : Value]) : Env
   (cons (bind name val) env))
+
+(define (lookup-method [name : Symbol] [methods : (Listof (Symbol * Value))]) : Value
+  (cond
+    [(empty? methods)
+     (error 'send "method not found")]
+    [(symbol=? name (fst (first methods)))
+     (snd (first methods))]
+    [else
+     (lookup-method name (rest methods))]))

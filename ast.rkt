@@ -11,4 +11,7 @@
   [appE (fun : Exp) (arg : Exp)]
   [ifE (cnd : Exp) (thn : Exp) (els : Exp)]
   [andE (left : Exp) (right : Exp)]
-  [orE (left : Exp) (right : Exp)])
+  [orE (left : Exp) (right : Exp)]
+  [objE (methods : (Listof Exp))]
+  [methodE (name : Symbol) (body : Exp)]
+  [sendE (obj : Exp) (name : Symbol) (arg : Exp)])

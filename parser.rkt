@@ -37,6 +37,25 @@
             (let1E (s-exp->symbol (first binding))
                    (parse (second binding))
                    (parse (third l))))]
+
+         ; object
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'object (s-exp->symbol (first l))))
+          (objE (map parse (rest l)))]
+
+         ; method
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'method (s-exp->symbol (first l))))
+          (methodE (s-exp->symbol (second l))
+                   (parse (third l)))]
+
+         ; send
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'send (s-exp->symbol (first l))))
+          (sendE (parse (second l))
+                 (string->symbol (s-exp->string (third l)))
+                 (parse (fourth l)))]
+         
          [else
           (appE (parse (first l)) (parse (second l)))]))]
     [else
