@@ -17,5 +17,5 @@
  (run `{let1 {obj {object
                    {field myVal 3}
                    {method get1 {lam _ myVal}}}}
-             {send obj "get1"}}
+             {send obj "get1" 0}}
       ) (numV 3))

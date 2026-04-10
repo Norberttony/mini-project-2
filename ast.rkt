@@ -13,5 +13,6 @@
   [andE (left : Exp) (right : Exp)]
   [orE (left : Exp) (right : Exp)]
   [objE (methods : (Listof Exp))]
+  [fieldE (name : Symbol) (val : Exp)]
   [methodE (name : Symbol) (body : Exp)]
   [sendE (obj : Exp) (name : Symbol) (arg : Exp)])

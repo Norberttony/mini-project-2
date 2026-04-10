@@ -43,6 +43,12 @@
                (symbol=? 'object (s-exp->symbol (first l))))
           (objE (map parse (rest l)))]
 
+         ; field
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'field (s-exp->symbol (first l))))
+          (fieldE (s-exp->symbol (second l))
+                  (parse (third l)))]
+
          ; method
          [(and (s-exp-symbol? (first l))
                (symbol=? 'method (s-exp->symbol (first l))))

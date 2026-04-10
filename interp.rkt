@@ -12,6 +12,16 @@
     [else
      (error 'add "not a number")]))
 
+(define (field? [m : Exp]) : Boolean
+  (type-case Exp m
+    [(fieldE _ __) #true]
+    [else #false]))
+
+(define (method? [m : Exp]) : Boolean
+  (type-case Exp m
+    [(methodE _ __) #true]
+    [else #false]))
+
 (define (interp [e : Exp] [nv : Env]) : Value
   (type-case Exp e
     [(numE n) (numV n)]
@@ -38,22 +48,38 @@
      (interp body (extend nv var (interp val nv)))]
 
     ; creating objects
-    [(objE methods)
-     (objV
-      (map
-       (lambda (m)
-         (type-case Exp m
-           [(methodE name body)
-            (pair name (interp body nv))]
-           [else (error 'obj "not a method")]))
-       methods))]
+    [(objE members)
+     (let* (
+            [fields
+             (map
+              (lambda (m)
+                (pair (fieldE-name m)
+                      (interp (fieldE-val m) nv)))
+              (filter field? members))]
+
+            ; extend env with fields
+            [field-env
+             (foldl
+              (lambda (p acc)
+                (extend acc (fst p) (snd p)))
+              nv
+              fields)]
+
+            ; build methods using extended env
+            [methods
+             (map
+              (lambda (m)
+                (pair (methodE-name m)
+                      (interp (methodE-body m) field-env)))
+              (filter method? members))])
+       (objV fields methods))]
 
     ; send
     [(sendE obj name arg)
      (let ([ov (interp obj nv)]
            [av (interp arg nv)])
        (type-case Value ov
-         [(objV methods)
+         [(objV fields methods)
           (let ([mv (lookup-method name methods)])
             (type-case Value mv
               [(funV v b nv*)
@@ -66,6 +92,9 @@
     ; method
     [(methodE name body)
      (methodV name (interp body nv))]
+
+    [(fieldE name body)
+     (numV 0)]
     
     [(andE l r)
      (error 'interp "andE not desugared!")]

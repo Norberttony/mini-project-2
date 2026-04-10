@@ -15,6 +15,9 @@
     ; object
     [(objE o) (objE (map desugar o))]
 
+    ; field
+    [(fieldE n b) (fieldE n (desugar b))]
+
     ; method
     [(methodE n b) (methodE n (desugar b))]
 

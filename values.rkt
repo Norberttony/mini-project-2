@@ -15,5 +15,6 @@
 (define-type Value
   [numV (n : Number)]
   [funV (var : Symbol) (body : Exp) (nv : Env)]
-  [objV (methods : (Listof (Symbol * Value)))]
+  [objV (fields : (Listof (Symbol * Value)))
+        (methods : (Listof (Symbol * Value)))]
   [methodV (name : Symbol) (lam : Value)])
