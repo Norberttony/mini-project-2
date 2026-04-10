@@ -25,14 +25,42 @@
     [(appE f a)
      (let ([fv (interp f nv)]
            [av (interp a nv)])
-       (type-case Value fv
-         [(funV v b nv*)
-          (interp b (extend nv* v av))]
+       (cond
+         ;; equal? primitive
+         [(and (varE? f) (symbol=? (varE-name f) 'equal?))
+          (cond
+            [(and (numV? fv) (numV? av))
+             (if (= (numV-n fv) (numV-n av))
+                 (numV 1)
+                 (numV 0))]
+            [(and (symV? fv) (symV? av))
+             (if (symbol=? (symV-s fv) (symV-s av))
+                 (numV 1)
+                 (numV 0))]
+            [else
+             (numV 0)])]
+
          [else
-          (error 'app "not a function")]))]
+          (type-case Value fv
+            [(funV v b nv*)
+             (interp b (extend nv* v av))]
+            [else
+             (error 'app "not a function")])]))]
     [(let1E var val body)
      (interp body (extend nv var (interp val nv)))]
+    [(symE s) (symV s)]
+    
     [(andE l r)
      (error 'interp "andE not desugared!")]
     [(orE l r)
-     (error 'interp "orE not desugared!")]))
+     (error 'interp "orE not desugared!")]
+
+    ; handle cases where we didn't successfully desugar some syntax...
+    [(objectE fields methods)
+     (error 'interp "objectE not desugared!")]
+    [(sendE obj m arg)
+     (error 'interp "sendE not desugared!")]
+    [(classE params body)
+     (error 'interp "classE not desugared!")]
+
+    ))
