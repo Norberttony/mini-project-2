@@ -20,6 +20,7 @@
 (define (interp [e : Exp] [nv : Env]) : Value
   (type-case Exp e
     [(numE n) (numV n)]
+    [(stringE s) (stringV s)]
     [(varE s) (lookup s nv)]
     [(plusE l r) (add (interp l nv) (interp r nv))]
     [(equalE l r) (is-equal (interp l nv) (interp r nv))]

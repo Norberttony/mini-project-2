@@ -4,6 +4,7 @@
 
 (define-type Exp
   [numE (n : Number)]
+  [stringE (s : String)]
   [plusE (left : Exp) (right : Exp)]
   [equalE (left : Exp) (right : Exp)]
   [varE (name : Symbol)]

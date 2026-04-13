@@ -14,4 +14,5 @@
 ; Represents a runtime value.
 (define-type Value
   [numV (n : Number)]
+  [stringV (s : String)]
   [funV (var : Symbol) (body : Exp) (nv : Env)])

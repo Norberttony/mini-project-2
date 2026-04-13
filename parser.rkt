@@ -16,6 +16,8 @@
   (cond
     [(s-exp-number? s)
      (numE (s-exp->number s))]
+    [(s-exp-string? s)
+     (stringE (s-exp->string s))]
     [(s-exp-symbol? s)
      (varE (s-exp->symbol s))]
     [(s-exp-list? s)

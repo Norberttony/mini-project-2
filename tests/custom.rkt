@@ -10,3 +10,7 @@
 ; Testing the = operator
 (test (run `{= 32 43}) (numV 0))
 (test (run `{= 23 23}) (numV 1))
+
+; Testing the string value
+(test (run `"I am string") (stringV "I am string"))
+(test (run `{= "string1" "string1"}) (numV 1))

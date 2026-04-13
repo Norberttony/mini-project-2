@@ -5,6 +5,7 @@
 (define (desugar [e : Exp]) : Exp
   (type-case Exp e
     [(numE n) (numE n)]
+    [(stringE s) (stringE s)]
     [(varE s) (varE s)]
     [(plusE l r) (plusE (desugar l) (desugar r))]
     [(equalE l r) (equalE (desugar l) (desugar r))]
