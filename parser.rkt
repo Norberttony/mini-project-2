@@ -25,6 +25,9 @@
                (symbol=? '+ (s-exp->symbol (first l))))
           (plusE (parse (second l)) (parse (third l)))]
          [(and (s-exp-symbol? (first l))
+               (symbol=? '= (s-exp->symbol (first l))))
+          (equalE (parse (second l)) (parse (third l)))]
+         [(and (s-exp-symbol? (first l))
                (symbol=? 'if (s-exp->symbol (first l))))
           (ifE (parse (second l))
                (parse (third l))

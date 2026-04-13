@@ -5,6 +5,7 @@
 (define-type Exp
   [numE (n : Number)]
   [plusE (left : Exp) (right : Exp)]
+  [equalE (left : Exp) (right : Exp)]
   [varE (name : Symbol)]
   [let1E (var : Symbol) (val : Exp) (body : Exp)]
   [lamE (var : Symbol) (body : Exp)]

@@ -12,11 +12,17 @@
     [else
      (error 'add "not a number")]))
 
+(define (is-equal [l : Value] [r : Value]) : Value
+  (if (equal? l r)
+      (numV 1)
+      (numV 0)))
+
 (define (interp [e : Exp] [nv : Env]) : Value
   (type-case Exp e
     [(numE n) (numV n)]
     [(varE s) (lookup s nv)]
     [(plusE l r) (add (interp l nv) (interp r nv))]
+    [(equalE l r) (is-equal (interp l nv) (interp r nv))]
     [(ifE cnd thn els)
      (if (equal? (interp cnd nv) (numV 0))
          (interp els nv)

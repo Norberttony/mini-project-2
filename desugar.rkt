@@ -7,6 +7,7 @@
     [(numE n) (numE n)]
     [(varE s) (varE s)]
     [(plusE l r) (plusE (desugar l) (desugar r))]
+    [(equalE l r) (equalE (desugar l) (desugar r))]
     [(ifE c t e) (ifE (desugar c) (desugar t) (desugar e))]
     [(lamE v b) (lamE v (desugar b))]
     [(appE f a) (appE (desugar f) (desugar a))]
