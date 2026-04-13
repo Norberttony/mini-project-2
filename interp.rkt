@@ -35,4 +35,11 @@
     [(andE l r)
      (error 'interp "andE not desugared!")]
     [(orE l r)
-     (error 'interp "orE not desugared!")]))
+     (error 'interp "orE not desugared!")]
+
+    [(objE l r)
+     (error 'interp "objE not desugared!")]
+    [(fieldE l r)
+     (error 'interp "fieldE not desugared!")]
+    [(methodE l r)
+     (error 'interp "methodE not desugared!")]))

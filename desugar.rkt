@@ -18,4 +18,10 @@
       (let1E 'v l
              (ifE (varE 'v)
                   (varE 'v)
-                  r)))]))
+                  r)))]
+    [(objE f m)
+     (error 'desugar "objE desugaring not implemented!")]
+    [(fieldE v b)
+     (error 'desugar "fieldE desugaring not implemented!")]
+    [(methodE v b)
+     (error 'desugar "methodE desugaring not implemented!")]))

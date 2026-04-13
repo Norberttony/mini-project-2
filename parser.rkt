@@ -4,6 +4,14 @@
 
 ; Converts S-Exp -> Exp
 
+(define (field-exp? s)
+  (and (s-exp-list? s)
+       (symbol=? 'field (s-exp->symbol (first (s-exp->list s))))))
+
+(define (method-exp? s)
+  (and (s-exp-list? s)
+       (symbol=? 'method (s-exp->symbol (first (s-exp->list s))))))
+
 (define (parse [s : S-Exp]) : Exp
   (cond
     [(s-exp-number? s)
@@ -37,6 +45,27 @@
             (let1E (s-exp->symbol (first binding))
                    (parse (second binding))
                    (parse (third l))))]
+
+         ; object
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'object (s-exp->symbol (first l))))
+          (let ([parts (rest l)])
+            (objE
+             (map parse (filter field-exp? parts))
+             (map parse (filter method-exp? parts))))]
+
+         ; field
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'field (s-exp->symbol (first l)))
+               (s-exp-symbol? (second l)))
+          (fieldE (s-exp->symbol (second l)) (parse (third l)))]
+
+         ; method
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'method (s-exp->symbol (first l)))
+               (s-exp-symbol? (second l)))
+          (methodE (s-exp->symbol (second l)) (parse (third l)))]
+         
          [else
           (appE (parse (first l)) (parse (second l)))]))]
     [else

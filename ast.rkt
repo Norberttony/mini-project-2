@@ -11,4 +11,7 @@
   [appE (fun : Exp) (arg : Exp)]
   [ifE (cnd : Exp) (thn : Exp) (els : Exp)]
   [andE (left : Exp) (right : Exp)]
-  [orE (left : Exp) (right : Exp)])
+  [orE (left : Exp) (right : Exp)]
+  [objE (fields : (Listof Exp)) (methods : (Listof Exp))]
+  [fieldE (name : Symbol) (val : Exp)]
+  [methodE (name : Symbol) (val : Exp)])
