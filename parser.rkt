@@ -70,6 +70,13 @@
                (symbol=? 'method (s-exp->symbol (first l)))
                (s-exp-symbol? (second l)))
           (methodE (s-exp->symbol (second l)) (parse (third l)))]
+
+         ; send
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'send (s-exp->symbol (first l))))
+          (appE
+           (appE (parse (second l)) (parse (third l)))
+           (parse (fourth l)))]
          
          [else
           (appE (parse (first l)) (parse (second l)))]))]
