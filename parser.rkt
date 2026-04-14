@@ -86,6 +86,13 @@
            (objE
             (map parse (filter field-exp? (rest (rest l))))
             (map parse (filter method-exp? (rest (rest l))))))]
+
+         ; set
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'set! (s-exp->symbol (first l))))
+          (setE
+           (s-exp->symbol (second l))
+           (parse (third l)))]
          
          [else
           (appE (parse (first l)) (parse (second l)))]))]

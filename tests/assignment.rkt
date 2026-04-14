@@ -7,13 +7,13 @@
 
 (print-only-errors #true)
 
-; Example 1 showcasing a simple object with one method
+; Example 1.1 showcasing a simple object with one method
 (test (run `{let1 {obj {object
                         {method add1 {lam x {+ x 1}}}}}
                   {send obj "add1" 5}})
       (numV 6))
 
-; Example 2 showcasing an object with many fields and many methods
+; Example 1.2 showcasing an object with many fields and many methods
 (test (run `{let1 {obj {object
                         {field v1 1}
                         {field v2 2}
@@ -24,6 +24,15 @@
                       {+ {send obj "sum" 0} {send obj "sum-v2" 3}}
                       {send obj "sum" 0}}})
       (numV 8))
+
+; Example 2 showcasing mutable fields and state
+(test (run `{let1 {o {object
+                  {field count 0}
+                  {method inc {lam _
+                                   {set! count {+ count 1}}}}}}
+              {let1 {v1 {send o "inc" 0}}
+                    {send o "inc" 0}} })
+      (numV 2))
 
 ; Example 3 showcasing two independent instances from a class.
 ; Since using set! and begin were outside of the scope of our project, we did not implement them.

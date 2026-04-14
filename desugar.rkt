@@ -41,6 +41,8 @@
     [(let1E v val b) (let1E v (desugar val) (desugar b))]
     [(andE l r)
      (desugar (ifE l r (numE 0)))]
+    [(setE n v)
+     (setE n (desugar v))]
     [(orE l r)
      (desugar
       (let1E 'v l

@@ -39,6 +39,13 @@
           (error 'app "not a function")]))]
     [(let1E var val body)
      (interp body (extend nv var (interp val nv)))]
+
+    [(setE n v)
+     (let ([new-val (interp v nv)])
+       (begin
+         (set-box! (lookup-loc n nv) new-val)
+         new-val))]
+    
     [(andE l r)
      (error 'interp "andE not desugared!")]
     [(orE l r)
