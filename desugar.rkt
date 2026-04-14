@@ -47,11 +47,22 @@
              (ifE (varE 'v)
                   (varE 'v)
                   r)))]
+
+    ; desugaring object
     [(objE f m)
      (desugar-fields
       f
       (lamE 'msg
             (desugar-methods m)))]
+
+    ; desugaring class
+    [(classE params body)
+     (foldr
+      (lambda (p acc)
+        (lamE p acc))
+      (desugar body)
+      params)]
+    
     [(fieldE v b)
      (error 'desugar "fieldE desugaring not implemented!")]
     [(methodE v b)

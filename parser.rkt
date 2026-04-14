@@ -77,6 +77,15 @@
           (appE
            (appE (parse (second l)) (parse (third l)))
            (parse (fourth l)))]
+
+         ; class
+         [(and (s-exp-symbol? (first l))
+               (symbol=? 'class (s-exp->symbol (first l))))
+          (classE
+           (map s-exp->symbol (s-exp->list (second l)))
+           (objE
+            (map parse (filter field-exp? (rest (rest l))))
+            (map parse (filter method-exp? (rest (rest l))))))]
          
          [else
           (appE (parse (first l)) (parse (second l)))]))]

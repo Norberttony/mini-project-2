@@ -49,4 +49,6 @@
     [(fieldE l r)
      (error 'interp "fieldE not desugared!")]
     [(methodE l r)
-     (error 'interp "methodE not desugared!")]))
+     (error 'interp "methodE not desugared!")]
+    [(classE params body)
+     (error 'interp "classE not desugared!")]))

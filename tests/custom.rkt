@@ -28,3 +28,10 @@
                  {field a 1}
                  {method get-a {lam _ a}}}}
              {send o "get-a" 0}}) (numV 1))
+
+; Test class sugaring
+(test (run `{let1
+             {c {class {p1}
+                 {field a p1}
+                 {method get-a {lam _ a}}}}
+             {let1 {o {c 3}} {send o "get-a" 0}}}) (numV 3))

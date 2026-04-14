@@ -16,4 +16,5 @@
   [orE (left : Exp) (right : Exp)]
   [objE (fields : (Listof Exp)) (methods : (Listof Exp))]
   [fieldE (name : Symbol) (val : Exp)]
-  [methodE (name : Symbol) (val : Exp)])
+  [methodE (name : Symbol) (val : Exp)]
+  [classE (params : (Listof Symbol)) (body : Exp)])
