@@ -14,3 +14,10 @@
 ; Testing the string value
 (test (run `"I am string") (stringV "I am string"))
 (test (run `{= "string1" "string1"}) (numV 1))
+
+; Testing method matching
+(test (run `{let1
+             {o {object
+                 {field a 1}
+                 {method get-a {lam _ a}}}}
+             {{o "get-a"} 0}}) (numV 1))

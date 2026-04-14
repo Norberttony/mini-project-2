@@ -8,4 +8,5 @@ High-level overview:
 
 ## Assignment Reminders
 - We will not be dealing with REAL objects. REAL objects are resolved during runtime (dynamically). Instead, we'll be adding to the desugarer to convert our objects into functions and encapsulated variables.
-- We will be representing method names using Symbols. This is by far the easiest.
+- ~~We will be representing method names using Symbols. This is by far the easiest.~~
+- Actually, we'll be using strings. :)
